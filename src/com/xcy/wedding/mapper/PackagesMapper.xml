@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xcy.wedding.mapper.PackagesMapper">
+  <resultMap id="BaseResultMap" type="com.xcy.wedding.pojo.Packages">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sort" jdbcType="VARCHAR" property="sort" />
+    <result column="imgURL" jdbcType="VARCHAR" property="imgurl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, price, title, sort, imgURL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from packages
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from packages
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xcy.wedding.pojo.Packages">
+    insert into packages (id, price, title, 
+      sort, imgURL)
+    values (#{id,jdbcType=INTEGER}, #{price,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xcy.wedding.pojo.Packages">
+    insert into packages
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="imgurl != null">
+        imgURL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xcy.wedding.pojo.Packages">
+    update packages
+    <set>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        imgURL = #{imgurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xcy.wedding.pojo.Packages">
+    update packages
+    set price = #{price,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=VARCHAR},
+      imgURL = #{imgurl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
